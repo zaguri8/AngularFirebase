@@ -2,14 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import Note from '../models/note.model';
 
-
-interface Note {
-  id: string
-  title: string
-  content: string
-  date: string
-}
 
 @Injectable({
   providedIn: 'root'

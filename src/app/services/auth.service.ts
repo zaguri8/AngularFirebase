@@ -12,7 +12,6 @@ export class AuthService {
   user$ = new Observable<User | null>()
   constructor(public auth: AngularFireAuth) {
     // when the user state changes -> do stuff (logout/fetch extra data)
-
     this.user$ = this.auth.authState as Observable<User | null>
   }
 
