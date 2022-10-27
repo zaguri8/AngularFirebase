@@ -11,7 +11,8 @@ export class AuthService {
 
   user$ = new Observable<User | null>()
   constructor(public auth: AngularFireAuth) {
-    // when the user state changes -> do stuff (logout/fetch extra data)
+    // when the user state changes -> do stuff (logout if nill / fetch extra data if not)
+    // in order to do that we have an observable from firebase for current user
     this.user$ = this.auth.authState as Observable<User | null>
   }
 

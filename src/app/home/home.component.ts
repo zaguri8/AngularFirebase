@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { DatabaseService } from '../services/database.service';
 
@@ -19,11 +19,12 @@ export class HomeComponent implements OnInit {
     note_date: new FormControl('', [Validators.required]),
   })
 
+  userSubscription: Subscription
   constructor(public authService: AuthService,
     public databaseService: DatabaseService,
     private router: Router) {
 
-    authService.user$.subscribe((user) => {
+    this.userSubscription = authService.user$.subscribe((user) => {
       if (user === null) {
         this.router.navigate(['auth'])
       }
@@ -48,6 +49,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe()
   }
 
 }
