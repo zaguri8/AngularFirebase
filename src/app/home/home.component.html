@@ -1,0 +1,36 @@
+<div *ngIf="authService.user$|async as user">
+    <p>
+        Hello, {{user.email}}
+    </p>
+
+
+    <h2>Add note</h2>
+    <form [formGroup]="noteForm" (ngSubmit)="onAddNote(user)">
+
+        <label>Note title</label>
+        <input type="text" placeholder="Enter note title" formControlName="note_title" />
+
+        <label>Note Content</label>
+        <input type="text" placeholder="Enter note content" formControlName="note_content" />
+
+        <label>Note Date</label>
+        <input type="date" placeholder="Enter note date" formControlName="note_date" />
+
+        <button type="submit">Add note</button>
+
+    </form>
+
+    <br>
+    <br>
+    <h2>Notes</h2>
+    <ul>
+        <li *ngFor="let note of databaseService.userNotes$|async">
+            <div>{{note.title}}</div>
+            <div>{{note.content}}</div>
+            <div>{{note.date}}</div>
+            <button (click)="databaseService.deleteNote(user,note)">Delete</button>
+        </li>
+    </ul>
+
+    <button (click)="authService.signOut()"> Sign out </button>
+</div>
